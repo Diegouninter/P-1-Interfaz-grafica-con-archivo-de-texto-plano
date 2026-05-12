@@ -106,26 +106,17 @@ namespace P_1_Interfaz_grafica_con_archivo_de_texto_plano
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (dgvLista.CurrentRow != null)
+            if (dgvLista.SelectedRows.Count > 0)
             {
-                int indice = dgvLista.CurrentRow.Index;
+                int indice = dgvLista.SelectedRows[0].Index;
 
                 lista.RemoveAt(indice);
 
                 MostrarDatos();
             }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (dgvLista.CurrentRow != null)
+            else
             {
-                int indice = dgvLista.CurrentRow.Index;
-
-                lista[indice].Nombre = "MODIFICADO";
-                lista[indice].Carrera = "Actualizada";
-
-                MostrarDatos();
+                MessageBox.Show("Selecciona una fila");
             }
         }
 
@@ -134,6 +125,24 @@ namespace P_1_Interfaz_grafica_con_archivo_de_texto_plano
             GuardarArchivo();
 
             Application.Exit();
+        }
+
+        private void btnModificar_Click_1(object sender, EventArgs e)
+        {
+            if (dgvLista.SelectedRows.Count > 0)
+            {
+                int indice = dgvLista.SelectedRows[0].Index;
+
+                lista[indice].Nombre = "Modificado";
+                lista[indice].Carrera = "Actualizada";
+
+                dgvLista.DataSource = null;
+                dgvLista.DataSource = lista;
+            }
+            else
+            {
+                MessageBox.Show("Selecciona una fila");
+            }
         }
     }
 }
